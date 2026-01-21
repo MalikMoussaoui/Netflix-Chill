@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix&Chill</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Netflix&Chill</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Accueil</a></li>
+            <li><a href="#">Séries</a></li>
+            <li><a href="#">Films</a></li>
+        </ul>
+        <div class="search-bar">
+            <input type="text" placeholder="Rechercher un titre...">
+        </div>
+    </nav>
+
+    <header id="hero" class="hero-header">
+        <div class="hero-content">
+            <h1 id="hero-title">Titre du Film</h1>
+            <p id="hero-desc">Description du film...</p>
+            <div class="hero-buttons">
+                <button class="btn btn-play">Lecture</button>
+                <button class="btn btn-info">Plus d'infos</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="category-rail">
+            <h2>Tendances actuelles</h2>
+            <div class="carousel" id="trending-rail">
+            </div>
+        </section>
+
+        <section class="category-rail">
+            <h2>Les mieux notés</h2>
+            <div class="carousel" id="top-rated-rail">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Netflix&Chill - Projet R4.10 Complément Web</p>
+        <p>Développé par Malik Moussaoui</p>
+    </footer>
+</body>
+</html>

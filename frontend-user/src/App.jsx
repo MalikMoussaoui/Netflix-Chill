@@ -3,7 +3,7 @@ function App() {
     <div className="min-h-screen bg-black text-white flex items-center justify-center">
       <div className="text-center p-10 border border-red-600 rounded-lg">
         <h1 className="text-6xl font-bold text-red-600 mb-4">
-          NETFLIX USER
+          Netflix & Chill
         </h1>
         <p className="text-xl text-gray-300">
           Frontend React + Tailwind v4

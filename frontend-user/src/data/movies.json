@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "title": "Inception",
+    "description": "Dom Cobb est un voleur expérimenté dans l’art périlleux de l’extraction : sa spécialité consiste à s’approprier les secrets les plus précieux d’un individu.",
+    "poster": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/s3TBrRGB1iav7gFOCNx3H31MoES.jpg",
+    "rating": 8.8,
+    "year": 2010,
+    "duration": 148,
+    "price": 3.99,
+    "genre": "Science-Fiction"
+  },
+  {
+    "id": 2,
+    "title": "The Dark Knight",
+    "description": "Batman aborde la phase ultime de sa guerre contre le crime. Avec l’aide du lieutenant de police Jim Gordon et du procureur Harvey Dent.",
+    "poster": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/hkBaDkMWbLaf8B1lsWsKX7Ew3Xq.jpg",
+    "rating": 9.0,
+    "year": 2008,
+    "duration": 152,
+    "price": 3.99,
+    "genre": "Action"
+  },
+  {
+    "id": 3,
+    "title": "Interstellar",
+    "description": "Le film raconte les aventures d’un groupe d’explorateurs qui utilisent une faille récemment découverte dans l’espace-temps.",
+    "poster": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6ICU6MxINBvIx.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/xu9zaAevzQ5nnrsXN6JcahLnG4i.jpg",
+    "rating": 8.6,
+    "year": 2014,
+    "duration": 169,
+    "price": 4.99,
+    "genre": "Science-Fiction"
+  },
+  {
+    "id": 4,
+    "title": "Avengers: Endgame",
+    "description": "Après les événements dévastateurs d’Infinity War, l’univers est en ruine. Avec l’aide des alliés restants, les Avengers se rassemblent.",
+    "poster": "https://image.tmdb.org/t/p/w500/ulzhLuWrPK07P1YkdWQLZnQh1JL.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+    "rating": 8.3,
+    "year": 2019,
+    "duration": 181,
+    "price": 4.99,
+    "genre": "Action"
+  },
+  {
+    "id": 5,
+    "title": "Parasite",
+    "description": "Toute la famille de Ki-taek est au chômage, et s’intéresse fortement au train de vie de la richissime famille Park.",
+    "poster": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/hiKmpZMGZsrkA3cdce8a7DwyQP2.jpg",
+    "rating": 8.5,
+    "year": 2019,
+    "duration": 132,
+    "price": 3.99,
+    "genre": "Thriller"
+  },
+  {
+    "id": 6,
+    "title": "The Godfather",
+    "description": "Don Vito Corleone, chef d'une famille mafieuse, décide de céder son empire à son plus jeune fils, Michael. Cependant, sa décision met involontairement la vie de ses proches en grave danger.",
+    "poster": "https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/tmU7GeKVybMWFButWEGl2M4GeiP.jpg",
+    "rating": 9.2,
+    "year": 1972,
+    "duration": 175,
+    "price": 3.99,
+    "genre": "Crime"
+  },
+  {
+    "id": 7,
+    "title": "Pulp Fiction",
+    "description": "L'odyssée sanglante et burlesque de petits malfrats dans la jungle de Hollywood à travers trois histoires qui s'entremêlent.",
+    "poster": "https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/suaEOtk1916gvDrLSdfk0jkG2I4.jpg",
+    "rating": 8.9,
+    "year": 1994,
+    "duration": 154,
+    "price": 3.99,
+    "genre": "Crime"
+  },
+  {
+    "id": 8,
+    "title": "Forrest Gump",
+    "description": "Quelques décennies d'histoire américaine, des années 1940 à la fin du XXème siècle, à travers le regard et l'étrange odyssée d'un homme simple et pur, Forrest Gump.",
+    "poster": "https://image.tmdb.org/t/p/w500/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/3h1JZGDhZ8nzxdgvkxha0qBqi05.jpg",
+    "rating": 8.8,
+    "year": 1994,
+    "duration": 142,
+    "price": 3.99,
+    "genre": "Drame"
+  },
+  {
+    "id": 9,
+    "title": "The Matrix",
+    "description": "Un pirate informatique apprend de mystérieux rebelles la véritable nature de sa réalité et son rôle dans la guerre contre ses contrôleurs.",
+    "poster": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/l4QHerTSbMI7qgva0rwD3P7C5w5.jpg",
+    "rating": 8.7,
+    "year": 1999,
+    "duration": 136,
+    "price": 3.99,
+    "genre": "Science-Fiction"
+  },
+  {
+    "id": 10,
+    "title": "Fight Club",
+    "description": "Un employé de bureau insomniaque et un fabricant de savon charismatique fondent un club de combat clandestin qui évolue en quelque chose de beaucoup plus sinistre.",
+    "poster": "https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/hZkgoQYus5vegHoetLkCJzb17zJ.jpg",
+    "rating": 8.4,
+    "year": 1999,
+    "duration": 139,
+    "price": 3.99,
+    "genre": "Drame"
+  }
+]

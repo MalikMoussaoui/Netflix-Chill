@@ -1,27 +1,31 @@
-import Formulaire from './components/Formulaire';
+import React from 'react';
+import Navbar from './components/common/Navbar';
+import MovieHero from './components/movies/MovieHero';
+import MovieList from './components/movies/MovieList';
+import Footer from './components/layout/Footer';
+import moviesData from './data/movies.json';
 
 function App() {
-  return (
-    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4">
-      
-      {/* En-tête NetZlux */}
-      <div className="text-center mb-8">
-        <h1 className="text-6xl font-bold text-red-600 mb-2">
-          NetZlux
-        </h1>
-        <p className="text-xl text-gray-300">
-          TP02 : Composants & Props
-        </p>
-      </div>
+    // On prend le premier film pour la bannière
+    const featuredMovie = moviesData[0];
 
-      {/* L'exercice du Formulaire (TP2) */}
-      <div className="w-full max-w-lg">
-        {/* On appelle le composant Formulaire */}
-        <Formulaire />
-      </div>
+    // On simule des catégories en mélangeant les films
+    const popularMovies = moviesData;
+    const actionMovies = moviesData.filter((m) => m.genre === 'Action');
+    const scifiMovies = moviesData.filter((m) => m.genre === 'Science-Fiction');
 
-    </div>
-  )
+    return (
+        <div className="bg-black min-h-screen text-white font-sans">
+            <Navbar />
+            <MovieHero movie={featuredMovie} />
+            <div className="-mt-32 relative z-10 space-y-8 pb-12">
+                <MovieList title="Tendances actuelles" movies={popularMovies} />
+                <MovieList title="Action & Aventure" movies={actionMovies} />
+                <MovieList title="Science-Fiction" movies={scifiMovies} />
+            </div>
+            <Footer />
+        </div>
+    );
 }
 
-export default App
+export default App;

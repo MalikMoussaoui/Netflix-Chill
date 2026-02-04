@@ -27,8 +27,8 @@
     "id": 3,
     "title": "Interstellar",
     "description": "Le film raconte les aventures d’un groupe d’explorateurs qui utilisent une faille récemment découverte dans l’espace-temps.",
-    "poster": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6ICU6MxINBvIx.jpg",
-    "backdrop": "https://image.tmdb.org/t/p/original/xu9zaAevzQ5nnrsXN6JcahLnG4i.jpg",
+    "poster": "https://image.tmdb.org/t/p/w500/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/xJHokMBLzpKE40hE0kG53zwPYKd.jpg",
     "rating": 8.6,
     "year": 2014,
     "duration": 169,
@@ -118,5 +118,65 @@
     "duration": 139,
     "price": 3.99,
     "genre": "Drame"
+  },
+  {
+    "id": 11,
+    "title": "Le Seigneur des anneaux : Le Retour du roi",
+    "description": "L'ultime affrontement entre les forces du Bien et du Mal qui se battent pour le contrôle de l'avenir de la Terre du Milieu.",
+    "poster": "https://image.tmdb.org/t/p/w500/rCzpDGLb66KmaI9gYUSg80Wo3hd.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/lXhgCODAbBXL5buk9yEmTpOoOgC.jpg",
+    "rating": 8.5,
+    "year": 2003,
+    "duration": 201,
+    "price": 4.99,
+    "genre": "Action"
+  },
+  {
+    "id": 12,
+    "title": "L'Empire contre-attaque",
+    "description": "Les rebelles, après l'attaque de l'Étoile de la Mort, se sont réfugiés sur la planète glacée Hoth. L'Empire tente de les retrouver.",
+    "poster": "https://image.tmdb.org/t/p/w500/kYd1ZMWvG9K2Jeop3XWNcTmWIF.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/aJCtkxLLzkk1pECehVjKHA2lB0t.jpg",
+    "rating": 8.7,
+    "year": 1980,
+    "duration": 124,
+    "price": 3.99,
+    "genre": "Science-Fiction"
+  },
+  {
+    "id": 13,
+    "title": "La Liste de Schindler",
+    "description": "L'histoire vraie d'Oskar Schindler, un industriel allemand qui a sauvé plus de mille Juifs des camps de concentration nazis.",
+    "poster": "https://image.tmdb.org/t/p/w500/sF1U4EUQS8YHUYjNl3pTXMY35GC.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/loRmRzQXZEqHErTNXMaAysvR9ac.jpg",
+    "rating": 8.6,
+    "year": 1993,
+    "duration": 195,
+    "price": 3.99,
+    "genre": "Drame"
+  },
+  {
+    "id": 14,
+    "title": "Les Affranchis",
+    "description": "L'ascension et la chute de Henry Hill, un gangster new-yorkais, et de ses amis dans la mafia italienne.",
+    "poster": "https://image.tmdb.org/t/p/w500/aKuFiU82s5ISJpGZp7YkIr3kCUd.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/sw7mordbZxgITU8QBxv9awK1s5J.jpg",
+    "rating": 8.7,
+    "year": 1990,
+    "duration": 146,
+    "price": 3.99,
+    "genre": "Crime"
+  },
+  {
+    "id": 15,
+    "title": "Seven",
+    "description": "Deux inspecteurs de police traquent un tueur en série qui utilise les sept péchés capitaux comme motifs pour ses meurtres.",
+    "poster": "https://image.tmdb.org/t/p/w500/6yoghtyTpznpBik8EngEmJskpUO.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/original/tC78Pck2YCsUAtEdZwuHYU98bq0.jpg",
+    "rating": 8.6,
+    "year": 1995,
+    "duration": 127,
+    "price": 3.99,
+    "genre": "Thriller"
   }
 ]

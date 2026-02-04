@@ -15,4 +15,5 @@ function MovieList({ title, movies }) {
         </section>
     );
 }
+
 export default MovieList;

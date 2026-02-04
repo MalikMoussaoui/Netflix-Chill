@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
 
-    // Effet pour détecter le scroll et changer la couleur de fond
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 0);
@@ -17,18 +16,21 @@ function Navbar() {
             isScrolled ? 'bg-black' : 'bg-gradient-to-b from-black/80 to-transparent'
         }`}>
             <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-                {/* Logo & Liens */}
+                
+                {/* Logo NetZlux */}
                 <div className="flex items-center space-x-8">
-                    <h1 className="text-primary text-3xl font-bold tracking-tight cursor-pointer">NETFLIX</h1>
+                    <h1 className="text-primary text-3xl font-bold tracking-tight cursor-pointer">
+                        NetZlux
+                    </h1>
                     <ul className="hidden md:flex space-x-6 text-gray-300">
                         <li className="hover:text-white cursor-pointer transition">Accueil</li>
                         <li className="hover:text-white cursor-pointer transition">Séries</li>
                         <li className="hover:text-white cursor-pointer transition">Films</li>
-                        <li className="hover:text-white cursor-pointer transition">Nouveautés</li>
+                        <li className="hover:text-white cursor-pointer transition">Ma Liste</li>
                     </ul>
                 </div>
 
-                {/* Partie Droite (Recherche, Avatar) */}
+                {/* Droite */}
                 <div className="flex items-center space-x-4 text-white">
                     <button className="hover:text-gray-300">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,7 +38,7 @@ function Navbar() {
                         </svg>
                     </button>
                     <div className="w-8 h-8 bg-primary rounded flex items-center justify-center font-bold cursor-pointer">
-                        U
+                        N
                     </div>
                 </div>
             </div>

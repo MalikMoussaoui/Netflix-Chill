@@ -1,17 +1,25 @@
+import Formulaire from './components/Formulaire';
+
 function App() {
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
-      <div className="text-center p-10 border border-red-600 rounded-lg">
-        <h1 className="text-6xl font-bold text-red-600 mb-4">
+    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-4">
+      
+      {/* En-tête NetZlux */}
+      <div className="text-center mb-8">
+        <h1 className="text-6xl font-bold text-red-600 mb-2">
           NetZlux
         </h1>
         <p className="text-xl text-gray-300">
-          Frontend React + Tailwind v4
+          TP02 : Composants & Props
         </p>
-        <div className="mt-4 bg-gray-800 p-2 rounded">
-          Port : 3000
-        </div>
       </div>
+
+      {/* L'exercice du Formulaire (TP2) */}
+      <div className="w-full max-w-lg">
+        {/* On appelle le composant Formulaire */}
+        <Formulaire />
+      </div>
+
     </div>
   )
 }

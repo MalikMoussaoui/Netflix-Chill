@@ -3,7 +3,6 @@ import { useState } from 'react';
 function MovieFilter({ movies, onFilter }) {
     const [selected, setSelected] = useState('all');
 
-    // Extraire les genres uniques
     const genres = ['all', ...new Set(movies.map(m => m.genre))];
 
     const handleFilter = (genre) => {

@@ -11,14 +11,15 @@ const genreColors = {
 };
 
 function MovieCard({ movie, isLiked, onToggleLike }) {
-    const { title, poster, rating, genre, description } = movie;
+    const { id, title, poster, rating, genre, description, year, duration, price } = movie;
 
     const handleClick = () => {
         console.log('Lecture du film :', title);
     };
+
     const handleLike = (e) => {
         e.stopPropagation();
-        if (onToggleLike) onToggleLike(movie.id);
+        if (onToggleLike) onToggleLike(id);
     };
 
     return (
@@ -39,13 +40,24 @@ function MovieCard({ movie, isLiked, onToggleLike }) {
 
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/90 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                 <h3 className="text-lg font-bold text-white mb-1">{title}</h3>
+                
+                <div className="flex items-center space-x-2 text-[10px] text-gray-300 mb-2">
+                    <span className="text-green-400 font-bold">{rating}/10</span>
+                    <span>{year}</span>
+                    <span>{duration} min</span>
+                </div>
+
                 <p className="text-xs text-gray-400 line-clamp-2 mb-3">{description}</p>
+                
                 <div className="flex gap-2">
-                    <Button size="sm" className="flex-1 text-xs" onClick={handleClick}>Lecture</Button>
+                    <Button size="sm" className="flex-1 text-[10px]" onClick={handleClick}>
+                        Louer {price}€
+                    </Button>
+                    
                     <Button 
                         variant={isLiked ? "primary" : "outline"} 
                         size="sm" 
-                        className="flex-1 text-xs"
+                        className="px-3 text-xs"
                         onClick={handleLike}
                     >
                         {isLiked ? '❤️' : '+'}

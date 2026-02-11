@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import MovieCard from './MovieCard';
 
-function MovieCarousel({ title, movies }) {
+function MovieCarousel({ title, movies, likedMovies, onToggleLike }) {
     const scrollContainerRef = useRef(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
@@ -17,12 +17,14 @@ function MovieCarousel({ title, movies }) {
         } else {
             container.scrollBy({ left: scrollAmount, behavior: "smooth" });
         }
+    };
 
-        // Mise à jour simple des états
-        setTimeout(() => {
+    const handleScroll = () => {
+        const container = scrollContainerRef.current;
+        if (container) {
             setCanScrollLeft(container.scrollLeft > 0);
-            setCanScrollRight(container.scrollLeft < (container.scrollWidth - container.clientWidth));
-        }, 500);
+            setCanScrollRight(container.scrollLeft < (container.scrollWidth - container.clientWidth - 10)); // -10 pour la marge d'erreur
+        }
     };
 
     return (
@@ -44,12 +46,13 @@ function MovieCarousel({ title, movies }) {
             {/* Container */}
             <div 
                 ref={scrollContainerRef} 
+                onScroll={handleScroll}
                 className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-4" 
                 style={{ scrollbarWidth: 'none' }}
             >
                 {movies.map((movie) => (
                     <div key={movie.id} className="shrink-0 w-48">
-                        <MovieCard movie={movie} />
+                        <MovieCard movie={movie} isLiked={likedMovies?.includes(movie.id)} onToggleLike={onToggleLike} />
                     </div>
                 ))}
             </div>

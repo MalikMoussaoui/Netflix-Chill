@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '../common/Button';
 
-function MovieCard({ movie }) {
-    const { title, poster, rating, genre, description } = movie;
-    const [isLiked, setIsLiked] = useState(false);
+const genreColors = {
+    'Action': 'bg-red-500',
+    'Science-Fiction': 'bg-purple-500',
+    'Thriller': 'bg-gray-500',
+    'Comédie': 'bg-yellow-500',
+    'Drame': 'bg-blue-500',
+    'Crime': 'bg-orange-700'
+};
 
-    const genreColors = {
-        'Action': 'bg-red-500',
-        'Science-Fiction': 'bg-purple-500',
-        'Thriller': 'bg-gray-500',
-        'Comédie': 'bg-yellow-500'
-    };
+function MovieCard({ movie, isLiked, onToggleLike }) {
+    const { title, poster, rating, genre, description } = movie;
 
     const handleClick = () => {
         console.log('Lecture du film :', title);
     };
-    const toggleLike = () => {
-        setIsLiked(!isLiked);
+    const handleLike = (e) => {
+        e.stopPropagation();
+        if (onToggleLike) onToggleLike(movie.id);
     };
 
     return (
@@ -44,7 +46,7 @@ function MovieCard({ movie }) {
                         variant={isLiked ? "primary" : "outline"} 
                         size="sm" 
                         className="flex-1 text-xs"
-                        onClick={toggleLike}
+                        onClick={handleLike}
                     >
                         {isLiked ? '❤️' : '+'}
                     </Button>

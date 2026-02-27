@@ -10,6 +10,7 @@ import NotFound from './pages/NotFound';
 import ProtectedRoute from './utils/ProtectedRoute';
 import SearchPage from './pages/SearchPage';
 
+
 function App() {
     return (
         <BrowserRouter>

@@ -4,6 +4,7 @@ import moviesData from '../data/movies.json';
 import Navbar from '../components/common/Navbar';
 import Button from '../components/common/Button';
 import Breadcrumb from '../components/common/Breadcrumb';
+import Footer from '../components/layout/Footer';
 
 function MovieDetail() {
     const { id } = useParams();
@@ -128,6 +129,8 @@ function MovieDetail() {
                     </div>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

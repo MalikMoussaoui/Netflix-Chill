@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import Footer from '../components/layout/Footer';
 
 function Login() {
     // États pour stocker ce que l'utilisateur tape
@@ -99,6 +100,8 @@ function Login() {
                     </div>
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 }

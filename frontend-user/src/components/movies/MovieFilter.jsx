@@ -25,7 +25,7 @@ function MovieFilter({ movies, onFilter, likedMovies }) {
     }, [likedMovies, selected, movies, onFilter]);
 
     return (
-        <div className="flex gap-2 p-4 overflow-x-auto">
+        <div className="flex gap-2 p-4 overflow-x-auto mt-8">
             {genres.map(g => (
                 <button
                     key={g}

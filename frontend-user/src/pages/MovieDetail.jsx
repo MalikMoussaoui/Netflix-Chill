@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import moviesData from '../data/movies.json';
 import Navbar from '../components/common/Navbar';
 import Button from '../components/common/Button';
+import Breadcrumb from '../components/common/Breadcrumb';
 
 function MovieDetail() {
     const { id } = useParams();
@@ -97,6 +98,13 @@ function MovieDetail() {
                     </div>
                     
                     <div className="flex flex-col justify-end pt-4 md:pt-0">
+                        
+                        <Breadcrumb items={[
+                            { label: 'Films', path: '/' }, 
+                            { label: movie.genre, path: `/?genre=${movie.genre}` }, 
+                            { label: movie.title }
+                        ]} />
+
                         <h1 className="text-4xl md:text-5xl font-bold mb-4">{movie.title}</h1>
                         
                         <div className="flex items-center flex-wrap gap-4 mb-6 text-sm">

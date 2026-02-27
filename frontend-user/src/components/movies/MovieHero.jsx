@@ -1,10 +1,17 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 
 function MovieHero({ movie }) {
+    const navigate = useNavigate();
+
     if (!movie) return null;
 
-    const { title, backdrop, rating, year, duration, genre, description, price } = movie;
+    const { id, title, backdrop, rating, year, duration, genre, description, price } = movie;
+
+    const handleMoreInfo = () => {
+        navigate(`/movie/${id}`);
+    };
 
     return (
         <div className="relative h-[80vh] w-full text-white">
@@ -24,7 +31,7 @@ function MovieHero({ movie }) {
                         {title}
                     </h1>
                     <div className="flex items-center flex-wrap gap-3 mb-6">
-                        <span className="bg-primary px-3 py-1 rounded text-sm font-bold">
+                        <span className="bg-primary px-3 py-1 rounded text-sm font-bold bg-red-600">
                             {rating}/10
                         </span>
                         <span className="text-gray-300">
@@ -44,7 +51,7 @@ function MovieHero({ movie }) {
                         <Button size="lg" className="shadow-2xl">
                             Louer pour {price}€
                         </Button>
-                        <Button variant="secondary" size="lg">
+                        <Button variant="secondary" size="lg" onClick={handleMoreInfo}>
                             Plus d'infos
                         </Button>
                     </div>

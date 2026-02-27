@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../common/Button';
 
 const genreColors = {
@@ -10,8 +11,14 @@ const genreColors = {
     'Crime': 'bg-orange-700'
 };
 
-function MovieCard({ movie, onAddToCart, isLiked, onToggleLike }) {
+function MovieCard({ movie, onAddToCart }) {
     const { id, title, poster, rating, genre, description, year, duration, price } = movie;
+    const [isLiked, setIsLiked] = useState(false);
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        navigate(`/movie/${id}`);
+    };
 
     const handleRent = (e) => {
         e.stopPropagation();
@@ -20,11 +27,14 @@ function MovieCard({ movie, onAddToCart, isLiked, onToggleLike }) {
 
     const handleLike = (e) => {
         e.stopPropagation();
-        if (onToggleLike) onToggleLike(id);
+        setIsLiked(!isLiked);
     };
 
     return (
-        <div className="group/card relative overflow-hidden rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105 w-full bg-gray-900">
+        <div 
+            onClick={handleCardClick}
+            className="group/card relative overflow-hidden rounded-lg cursor-pointer transition-transform duration-300 hover:scale-105 w-full bg-gray-900"
+        >
             <div className="relative aspect-[2/3] w-full">
                 <img 
                     src={poster} 

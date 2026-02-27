@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import SearchBar from '../movies/SearchBar';
+import CartButton from './CartButton';
 
-function Navbar({ onSearch, movies }) {
+function Navbar({ onSearch, movies, cartItems, onRemove }) {
     const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
@@ -34,6 +35,7 @@ function Navbar({ onSearch, movies }) {
                 {/* Droite */}
                 <div className="flex items-center space-x-4 text-white">
                     <SearchBar onSearch={onSearch} movies={movies} />
+                    <CartButton cartItems={cartItems} onRemove={onRemove} />
                     <div className="w-8 h-8 bg-primary rounded flex items-center justify-center font-bold cursor-pointer">
                         N
                     </div>

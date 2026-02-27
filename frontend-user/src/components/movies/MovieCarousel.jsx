@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import MovieCard from "./MovieCard";
 
-function MovieCarousel({ title, movies, onAddToCart }) {
+function MovieCarousel({ title, movies, onAddToCart, likedMovies, onToggleLike }) {
     const scrollContainerRef = useRef(null);
 
     const scroll = (direction) => {
@@ -41,6 +41,8 @@ function MovieCarousel({ title, movies, onAddToCart }) {
                         <MovieCard 
                             movie={movie} 
                             onAddToCart={onAddToCart}
+                            isLiked={likedMovies?.includes(movie.id)}
+                            onToggleLike={onToggleLike}
                         />
                     </div>
                 ))}

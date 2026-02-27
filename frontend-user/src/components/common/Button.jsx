@@ -4,7 +4,7 @@ function Button({ children, variant = 'primary', size = 'md', onClick, className
     const baseClasses = 'font-semibold rounded transition-all duration-300 inline-flex items-center justify-center text-center';
     
     const variants = {
-        primary: 'bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl',
+        primary: 'bg-red-600 hover:bg-red-700 text-white',
         secondary: 'bg-white/20 hover:bg-white/30 text-white backdrop-blur-sm',
         outline: 'border-2 border-white/50 hover:border-white hover:bg-white/10 text-white'
     };

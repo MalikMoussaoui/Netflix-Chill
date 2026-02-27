@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '../common/Button';
 
 const genreColors = {
@@ -10,9 +10,8 @@ const genreColors = {
     'Crime': 'bg-orange-700'
 };
 
-function MovieCard({ movie, onAddToCart }) {
+function MovieCard({ movie, onAddToCart, isLiked, onToggleLike }) {
     const { id, title, poster, rating, genre, description, year, duration, price } = movie;
-    const [isLiked, setIsLiked] = useState(false);
 
     const handleRent = (e) => {
         e.stopPropagation();
@@ -21,7 +20,7 @@ function MovieCard({ movie, onAddToCart }) {
 
     const handleLike = (e) => {
         e.stopPropagation();
-        setIsLiked(!isLiked);
+        if (onToggleLike) onToggleLike(id);
     };
 
     return (
@@ -49,17 +48,17 @@ function MovieCard({ movie, onAddToCart }) {
                     <span>{duration} min</span>
                 </div>
 
-                <p className="text-[10px] text-gray-400 line-clamp-2 mb-3 leading-snug">{description}</p>
+                <p className="text-[10px] text-gray-400 line-clamp-2 leading-snug">{description}</p>
                 
-                <div className="flex gap-2 mt-auto">
-                    <Button size="sm" className="flex-1 w-full" onClick={handleRent}>
+                <div className="flex flex-row items-center justify-between gap-2 mt-4 w-full">
+                    <Button size="sm" className="flex-1 truncate" onClick={handleRent}>
                         Louer {price}€
                     </Button>
                     
                     <Button 
                         variant={isLiked ? "primary" : "outline"} 
                         size="sm" 
-                        className="px-3"
+                        className="w-10 flex-shrink-0 px-0" 
                         onClick={handleLike}
                     >
                         {isLiked ? '❤️' : '+'}

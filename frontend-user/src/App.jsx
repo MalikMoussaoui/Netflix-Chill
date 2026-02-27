@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './utils/ProtectedRoute';
+import SearchPage from './pages/SearchPage';
 
 function App() {
     return (
@@ -28,6 +29,7 @@ function App() {
                 />
                 
                 <Route path="*" element={<NotFound />} />
+                <Route path="/search" element={<SearchPage />} />
             </Routes>
         </BrowserRouter>
     );

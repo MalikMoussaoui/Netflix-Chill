@@ -1,46 +1,43 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import moviesData from '../data/movies.json';
 import Navbar from '../components/common/Navbar';
 import MovieHero from '../components/movies/MovieHero';
-import MovieList from '../components/movies/MovieList';
 import MovieCarousel from '../components/movies/MovieCarousel';
-import Footer from '../components/layout/Footer';
-import moviesData from '../data/movies.json';
 import MovieFilter from '../components/movies/MovieFilter';
-
+import Footer from '../components/layout/Footer';
 
 function Home() {
-    const [filteredMovies, setFilteredMovies] = useState(moviesData);
-    const [likedMovies, setLikedMovies] = useState([]);
-    const featuredMovie = moviesData[0];
+    const [movies, setMovies] = useState(moviesData);
+    const [cart, setCart] = useState([]);
 
-    const toggleLike = (movieId) => {
-        if (likedMovies.includes(movieId)) {
-            setLikedMovies(likedMovies.filter(id => id !== movieId));
-        } else {
-            setLikedMovies([...likedMovies, movieId]);
+    const addToCart = (movie) => {
+        if (!cart.find(item => item.id === movie.id)) {
+            setCart([...cart, movie]);
         }
     };
 
-    const handleSearch = (input) => {
-        // Protection : si input est un événement (e), on récupère la valeur, sinon on utilise l'input tel quel
-        const term = (input && typeof input === 'object' && input.target) ? input.target.value : input;
-        const safeTerm = typeof term === 'string' ? term : "";
-
-        const filtered = moviesData.filter(movie => 
-            movie.title.toLowerCase().includes(safeTerm.toLowerCase())
-        );
-        setFilteredMovies(filtered);
+    const removeFromCart = (id) => {
+        setCart(cart.filter(item => item.id !== id));
     };
 
     return (
-        <div className="bg-black min-h-screen text-white font-sans">
-            <Navbar onSearch={handleSearch} movies={moviesData} />
-            <MovieHero movie={featuredMovie} />
-            <div className="-mt-15 relative z-10 space-y-4 pb-12">
-                <MovieCarousel title="Tendances Actuelles" movies={moviesData} likedMovies={likedMovies} onToggleLike={toggleLike} />
-                <MovieFilter movies={moviesData} onFilter={setFilteredMovies} likedMovies={likedMovies} />
+        <div className="bg-black min-h-screen text-white">
+            <Navbar 
+                movies={moviesData} 
+                cartItems={cart} 
+                onRemove={removeFromCart} 
+            />
+            
+            <MovieHero movie={moviesData[0]} />
+            
+            <div className="-mt-16 relative z-10 space-y-10 pb-20">
+                <MovieFilter movies={moviesData} onFilter={setMovies} />
                 
-                <MovieList title="Catalogue" movies={filteredMovies} likedMovies={likedMovies} onToggleLike={toggleLike} />
+                <MovieCarousel 
+                    title="Films disponibles" 
+                    movies={movies} 
+                    onAddToCart={addToCart}
+                />
             </div>
             <Footer />
         </div>

@@ -1,19 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import moviesData from '../data/movies.json';
 import Navbar from '../components/common/Navbar';
 import Button from '../components/common/Button';
 
 function MovieDetail() {
-    // 1. On extrait l'ID depuis l'URL (ex: /movie/3 -> id = "3")
     const { id } = useParams();
     const navigate = useNavigate();
+    const [notification, setNotification] = useState(null);
 
-    // 2. On cherche le film qui correspond à cet ID dans notre fichier JSON
-    // Attention: l'id de l'URL est une chaîne de caractères, on le convertit en nombre avec parseInt
     const movie = moviesData.find(m => m.id === parseInt(id));
 
-    // 3. Gestion d'erreur : Si on tape un ID qui n'existe pas
+    const handleRent = () => {
+        const user = localStorage.getItem('user');
+        
+        if (!user) {
+            navigate('/login');
+            return;
+        }
+
+        const rental = {
+            ...movie,
+            rentalDate: new Date().toISOString(),
+            expiryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+        };
+
+        const existingRentals = JSON.parse(localStorage.getItem('rentals')) || [];
+        const alreadyRented = existingRentals.some(r => r.id === movie.id);
+        
+        if (alreadyRented) {
+            setNotification({ type: 'error', message: 'Vous avez déjà loué ce film' });
+            return;
+        }
+
+        const newRentals = [...existingRentals, rental];
+        localStorage.setItem('rentals', JSON.stringify(newRentals));
+        
+        setNotification({ type: 'success', message: 'Film loué avec succès !' });
+        
+        setTimeout(() => {
+            navigate('/my-rentals');
+        }, 2000);
+    };
+
     if (!movie) {
         return (
             <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
@@ -24,13 +53,16 @@ function MovieDetail() {
         );
     }
 
-    // 4. Affichage normal si le film est trouvé
     return (
         <div className="min-h-screen bg-black text-white">
-            {/* On réutilise la Navbar */}
             <Navbar movies={moviesData} cartItems={[]} onRemove={() => {}} />
 
-            {/* Bannière Background */}
+            {notification && (
+                <div className={`fixed top-20 right-4 px-6 py-3 rounded-lg shadow-xl z-50 text-white font-bold ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
+                    {notification.message}
+                </div>
+            )}
+
             <div className="relative h-[50vh] w-full">
                 <div className="absolute inset-0">
                     <img 
@@ -41,7 +73,6 @@ function MovieDetail() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
                 </div>
                 
-                {/* Bouton retour (utilise navigate(-1) pour revenir à la page précédente) */}
                 <div className="absolute top-24 left-4 md:left-10 z-10">
                     <button 
                         onClick={() => navigate(-1)} 
@@ -55,10 +86,8 @@ function MovieDetail() {
                 </div>
             </div>
 
-            {/* Contenu principal (Affiche + Informations) */}
             <div className="container mx-auto px-4 -mt-32 relative z-10 pb-20">
                 <div className="flex flex-col md:flex-row gap-8">
-                    {/* Affiche du film */}
                     <div className="w-48 md:w-64 flex-shrink-0 mx-auto md:mx-0">
                         <img 
                             src={movie.poster} 
@@ -67,7 +96,6 @@ function MovieDetail() {
                         />
                     </div>
                     
-                    {/* Infos textuelles */}
                     <div className="flex flex-col justify-end pt-4 md:pt-0">
                         <h1 className="text-4xl md:text-5xl font-bold mb-4">{movie.title}</h1>
                         
@@ -85,7 +113,7 @@ function MovieDetail() {
                         </p>
                         
                         <div className="flex gap-4">
-                            <Button size="lg" className="shadow-red-600/20">
+                            <Button size="lg" className="shadow-red-600/20" onClick={handleRent}>
                                 Louer pour {movie.price}€
                             </Button>
                         </div>

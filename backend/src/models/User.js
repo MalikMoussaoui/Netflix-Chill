@@ -41,15 +41,13 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Middleware pre-save : Hachage du mot de passe si modifié [cite: 224-231]
-userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) return next();
-    try {
-        const salt = await bcrypt.genSalt(10);
-        this.password = await bcrypt.hash(this.password, salt);
-        next();
-    } catch (error) {
-        next(error);
+userSchema.pre('save', async function() {
+    // Ne hasher que si le password a été modifié
+    if (!this.isModified('password')) {
+        return;
     }
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
 });
 
 // Méthode d'instance : Comparaison des mots de passe [cite: 232-235]

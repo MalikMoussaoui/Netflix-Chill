@@ -32,10 +32,11 @@ const movieSchema = new mongoose.Schema({
             },
             {
                 validator: v => v.length <= 5,
-                message: "Un film ne peut pas avoir plus de 5 genres" // Ex 2 
+                message: "Un film ne peut pas avoir plus de 5 genres"
             }
         ],
-        enum: ["Action", "Comédie", "Drame", "Science-Fiction", "Horreur", "Thriller", "Romance", "Animation", "Documentaire"]
+        // Ajout de "Crime", "Aventure", et "Fantastique" pour couvrir plus de cas
+        enum: ["Action", "Comédie", "Drame", "Science-Fiction", "Horreur", "Thriller", "Romance", "Animation", "Documentaire", "Crime", "Aventure", "Fantastique"]
     },
     year: {
         type: Number,

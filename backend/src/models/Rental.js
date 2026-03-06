@@ -81,12 +81,12 @@ rentalSchema.statics.getExpiredRentals = function(userId) {
 };
 
 // Hook exécuté avant les requêtes find() pour corriger le statut à la volée 
-rentalSchema.pre(/^find/, async function(next) {
+rentalSchema.pre(/^find/, async function() {
+    // Marquer comme expirées les locations dont la date est dépassée
     await this.model.updateMany(
         { expiryDate: { $lt: new Date() }, status: 'active' },
         { status: 'expired' }
     );
-    next();
 });
 
 export default mongoose.model('Rental', rentalSchema);

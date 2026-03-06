@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
+import Footer from '../components/layout/Footer';
 import moviesData from '../data/movies.json';
 
 function MyRentals() {
@@ -40,7 +41,7 @@ function MyRentals() {
                 ) : (
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
                         {rentals.map((movie) => (
-                            <div key={movie.id} className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800 transition-transform hover:scale-105">
+                            <Link to={`/watch/${movie.id}`} key={movie.id} className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800 transition-transform hover:scale-105 block">
                                 <img src={movie.poster} alt={movie.title} className="w-full aspect-[2/3] object-cover" />
                                 <div className="p-4">
                                     <h3 className="font-bold text-sm truncate text-white mb-1">{movie.title}</h3>
@@ -48,11 +49,12 @@ function MyRentals() {
                                         Expire le : {new Date(movie.expiryDate).toLocaleDateString()}
                                     </p>
                                 </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 )}
             </div>
+            <Footer />
         </div>
     );
 }

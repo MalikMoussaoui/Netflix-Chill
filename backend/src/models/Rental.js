@@ -20,7 +20,7 @@ const rentalSchema = new mongoose.Schema({
         required: true,
         default: function() {
             const date = new Date();
-            date.setDate(date.getDate() + 7); // 7 jours de location par défaut [cite: 533-535]
+            date.setDate(date.getDate() + 7); // 7 jours de location par défaut
             return date;
         }
     },
@@ -36,11 +36,11 @@ const rentalSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-// Optimisation : Index pour éviter les doublons accidentels et accélérer les requêtes [cite: 556-558]
+// Optimisation : Index pour éviter les doublons accidentels et accélérer les requêtes
 rentalSchema.index({ user: 1, movie: 1 });
 rentalSchema.index({ status: 1, expiryDate: 1 });
 
-// Virtuals [cite: 559-568]
+// Virtuals
 rentalSchema.virtual('isValid').get(function() {
     return this.status === 'active' && new Date() < this.expiryDate;
 });
@@ -51,7 +51,7 @@ rentalSchema.virtual('daysLeft').get(function() {
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
 });
 
-// Instance methods [cite: 569-577]
+// Instance methods
 rentalSchema.methods.isActive = function() {
     return this.status === 'active' && new Date() < this.expiryDate;
 };
@@ -61,7 +61,7 @@ rentalSchema.methods.markAsExpired = async function() {
     return await this.save();
 };
 
-// Static methods [cite: 578-603]
+// Static methods
 rentalSchema.statics.getActiveRentals = function(userId) {
     return this.find({
         user: userId,

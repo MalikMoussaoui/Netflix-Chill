@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Le mot de passe est requis'],
         minlength: [6, 'Le mot de passe doit contenir au moins 6 caractères'],
-        select: false // Sécurité : ne pas renvoyer le mdp par défaut [cite: 196]
+        select: false // Sécurité : ne pas renvoyer le mdp par défaut
     },
     role: {
         type: String,
@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-// Middleware pre-save : Hachage du mot de passe si modifié [cite: 224-231]
+// Middleware pre-save : Hachage du mot de passe si modifié
 userSchema.pre('save', async function() {
     // Ne hasher que si le password a été modifié
     if (!this.isModified('password')) {
@@ -50,19 +50,19 @@ userSchema.pre('save', async function() {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Méthode d'instance : Comparaison des mots de passe [cite: 232-235]
+// Méthode d'instance : Comparaison des mots de passe
 userSchema.methods.comparePassword = async function(candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
 
-// Sécurité : Supprimer le mot de passe de l'objet renvoyé au client [cite: 236-240]
+// Sécurité : Supprimer le mot de passe de l'objet renvoyé au client
 userSchema.methods.toJSON = function() {
     const user = this.toObject();
     delete user.password;
     return user;
 };
 
-// Méthode statique utilitaire [cite: 241-243]
+// Méthode statique utilitaire
 userSchema.statics.findByEmail = function(email) {
     return this.findOne({ email: email.toLowerCase() });
 };

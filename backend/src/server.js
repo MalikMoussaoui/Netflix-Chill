@@ -20,7 +20,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Logger simple en développement [cite: 849-853]
+// Logger simple en développement
 if (process.env.NODE_ENV === 'development') {
     app.use((req, res, next) => {
         console.log(`[${req.method}] ${req.path}`);
@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'development') {
     });
 }
 
-// Routes de base et Health Check [cite: 858-878]
+// Routes de base et Health Check
 app.get('/', (req, res) => {
     res.json({ message: 'API Netflix Chill en ligne', version: '1.0.0' });
 });
@@ -48,7 +48,7 @@ app.get('/api/health', (req, res) => {
 // GESTION DES ERREURS
 // --------------------------------------------------------
 
-// 1. Middleware pour les routes non trouvées (404) [cite: 887-893]
+// 1. Middleware pour les routes non trouvées (404)
 app.use((req, res, next) => {
     res.status(404).json({
         success: false,
@@ -57,7 +57,7 @@ app.use((req, res, next) => {
     });
 });
 
-// 2. Middleware Global de gestion d'erreurs [cite: 897-935]
+// 2. Middleware Global de gestion d'erreurs
 app.use((err, req, res, next) => {
     console.error('❌ Erreur interceptée :', err);
 
@@ -97,13 +97,13 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Démarrage du serveur [cite: 937-942]
+// Démarrage du serveur
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
 });
 
-// Sécurité supplémentaire : gestion des crashs inattendus [cite: 944-951]
+// Sécurité supplémentaire : gestion des crashs inattendus
 process.on('unhandledRejection', (err) => {
     console.error('❌ Unhandled Rejection:', err);
     process.exit(1);
@@ -113,4 +113,3 @@ process.on('uncaughtException', (err) => {
     console.error('❌ Uncaught Exception:', err);
     process.exit(1);
 });
-

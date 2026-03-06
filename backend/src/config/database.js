@@ -12,7 +12,7 @@ const connectDB = async () => {
         console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
         console.log(`📁 Database: ${conn.connection.name}`);
 
-        // Écouteurs d'événements pour monitorer la connexion en temps réel [cite: 147-153]
+        // Écouteurs d'événements pour monitorer la connexion en temps réel
         mongoose.connection.on('error', (err) => {
             console.error(`❌ MongoDB connection error: ${err}`);
         });
@@ -21,7 +21,7 @@ const connectDB = async () => {
             console.warn('⚠️ MongoDB disconnected');
         });
 
-        // Gestion de l'arrêt propre (SIGINT = Ctrl+C) [cite: 154-159]
+        // Gestion de l'arrêt propre (SIGINT = Ctrl+C)
         process.on('SIGINT', async () => {
             await mongoose.connection.close();
             console.log('🛑 MongoDB connection closed through app termination');
@@ -30,7 +30,7 @@ const connectDB = async () => {
 
     } catch (error) {
         console.error(`❌ Erreur critique de connexion: ${error.message}`);
-        // Arrêt du processus en cas d'échec de la base de données (Fail-fast) [cite: 162]
+        // Arrêt du processus en cas d'échec de la base de données (Fail-fast)
         process.exit(1); 
     }
 };

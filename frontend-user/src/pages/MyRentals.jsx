@@ -1,23 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/layout/Footer';
 import moviesData from '../data/movies.json';
 
 function MyRentals() {
-    const [rentals, setRentals] = useState([]);
-
-    useEffect(() => {
+    // Initialisation directe depuis le localStorage (plus besoin de useEffect pour ça)
+    const [rentals] = useState(() => {
         const storedData = localStorage.getItem('rentals');
         if (storedData) {
             try {
-                setRentals(JSON.parse(storedData));
+                const parsedData = JSON.parse(storedData);
+                return Array.isArray(parsedData) ? parsedData : [];
             } catch (error) {
                 console.error("Erreur de lecture du localStorage", error);
-                setRentals([]);
+                return [];
             }
         }
-    }, []);
+        return [];
+    });
 
     return (
         <div className="min-h-screen bg-black text-white">

@@ -3,14 +3,12 @@ import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
-// Importation de la configuration et de tous nos modèles
 import connectDB from '../config/database.js';
 import User from '../models/User.js';
 import Movie from '../models/Movie.js';
 import Rental from '../models/Rental.js';
-import Review from '../models/Review.js'; // Ajout du modèle Bonus
+import Review from '../models/Review.js';
 
-// Configuration pour récupérer le bon path pour le fichier .env
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 dotenv.config({ path: join(__dirname, '../../.env') });
@@ -20,9 +18,6 @@ const testModels = async () => {
         await connectDB();
         console.log('\n🧪 Démarrage des tests complets des modèles...\n');
 
-        // ==========================================
-        // EXERCICE 1 : Tests de base
-        // ==========================================
         console.log('--- EX 1: Tests de base ---');
         
         console.log('Test 1: Création d\'un utilisateur');
@@ -69,9 +64,6 @@ const testModels = async () => {
             joursRestants: testRental.daysLeft
         });
 
-        // ==========================================
-        // EXERCICE 2 : Test des validations personnalisées
-        // ==========================================
         console.log('\n--- EX 2: Validations personnalisées ---');
         try {
             await Movie.create({
@@ -89,11 +81,7 @@ const testModels = async () => {
             console.log('✅ Validation bloquée avec succès comme prévu ! Raison :', error.message);
         }
 
-        // ==========================================
-        // EXERCICE 3 : Méthodes statiques avancées
-        // ==========================================
         console.log('\n--- EX 3: Méthodes de recherche avancées ---');
-        // Utilise les données injectées par le seed.js précédemment
         const sciFiMovies = await Movie.getByGenre("Science-Fiction");
         console.log("✅ Films Sci-Fi en base:", sciFiMovies.length);
 
@@ -103,9 +91,6 @@ const testModels = async () => {
         const stats = await Movie.getStatsByGenre();
         console.log("✅ Statistiques par genre:", stats);
 
-        // ==========================================
-        // CHALLENGE BONUS : Modèle Review & Moyenne automatique
-        // ==========================================
         console.log('\n--- CHALLENGE BONUS: Modèle Review ---');
         
         const testReview = await Review.create({
@@ -116,16 +101,12 @@ const testModels = async () => {
         });
         console.log('✅ Review créée :', testReview.comment);
 
-        // Petite pause asynchrone pour laisser le temps au middleware "post-save" de s'exécuter en arrière-plan
         console.log('⏳ Attente du calcul de la moyenne en arrière-plan...');
         await new Promise(resolve => setTimeout(resolve, 500)); 
 
         const updatedMovie = await Movie.findById(testMovie._id);
         console.log('✅ Nouvelle note moyenne du film calculée automatiquement :', updatedMovie.rating, '/ 10');
 
-        // ==========================================
-        // NETTOYAGE DES DONNEES DE TEST
-        // ==========================================
         console.log('\n🧹 Nettoyage des données de test...');
         await Review.deleteOne({ _id: testReview._id });
         await Rental.deleteOne({ _id: testRental._id });

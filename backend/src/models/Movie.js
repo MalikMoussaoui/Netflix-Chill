@@ -35,7 +35,6 @@ const movieSchema = new mongoose.Schema({
                 message: "Un film ne peut pas avoir plus de 5 genres"
             }
         ],
-        // Ajout de "Crime", "Aventure", et "Fantastique" pour couvrir plus de cas
         enum: ["Action", "Comédie", "Drame", "Science-Fiction", "Horreur", "Thriller", "Romance", "Animation", "Documentaire", "Crime", "Aventure", "Fantastique"]
     },
     year: {
@@ -48,7 +47,7 @@ const movieSchema = new mongoose.Schema({
         type: Number,
         required: [true, "La durée est requise"],
         min: [1, "La durée doit être positive"],
-        max: [500, "La durée ne peut pas dépasser 500 minutes"] // Ex 2 
+        max: [500, "La durée ne peut pas dépasser 500 minutes"]
     },
     price: {
         type: Number,
@@ -57,7 +56,7 @@ const movieSchema = new mongoose.Schema({
         default: 3.99,
         validate: {
             validator: function(v) {
-                return /^\d+(\.\d{1,2})?$/.test(v.toString()); // Ex 2 
+                return /^\d+(\.\d{1,2})?$/.test(v.toString());
             },
             message: "Le prix doit avoir au maximum 2 décimales"
         }
@@ -79,20 +78,17 @@ const movieSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-// Indexation pour les recherches performantes
 movieSchema.index({ title: "text", description: "text" });
 movieSchema.index({ genre: 1 });
 movieSchema.index({ year: -1 });
 movieSchema.index({ rating: -1 });
 
-// Propriétés virtuelles
 movieSchema.virtual("durationFormatted").get(function() {
     const hours = Math.floor(this.duration / 60);
     const minutes = this.duration % 60;
     return `${hours}h${minutes > 0 ? ` ${minutes}min` : ""}`;
 });
 
-// Méthodes d'instances et statiques
 movieSchema.methods.incrementRentalCount = async function() {
     this.rentalCount += 1;
     return await this.save();
@@ -109,7 +105,6 @@ movieSchema.statics.search = function(query) {
     }).sort({ score: { $meta: "textScore" } });
 };
 
-// Exercice 3: Méthodes de requête avancées
 movieSchema.statics.getByGenre = function(genre) {
     return this.find({ genre, isAvailable: true }).sort({ rating: -1 });
 };

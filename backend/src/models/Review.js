@@ -24,13 +24,9 @@ const reviewSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-// 1. RÈGLE : Un seul avis par utilisateur pour un film donné 
-// L'index composé avec "unique: true" empêche MongoDB d'insérer un doublon.
 reviewSchema.index({ user: 1, movie: 1 }, { unique: true });
 
-// 2. STATIQUE : Calcul de la moyenne des notes pour un film 
 reviewSchema.statics.calculateAverageRating = async function(movieId) {
-    // Agrégation pour calculer la moyenne de toutes les notes de ce film
     const stats = await this.aggregate([
         { $match: { movie: movieId } },
         {
@@ -42,14 +38,11 @@ reviewSchema.statics.calculateAverageRating = async function(movieId) {
     ]);
 
     try {
-        // Mise à jour de la note du film dans la collection Movie
         if (stats.length > 0) {
             await mongoose.model('Movie').findByIdAndUpdate(movieId, {
-                // On arrondit à 1 décimale (ex: 4.3)
                 rating: Math.round(stats[0].averageRating * 10) / 10 
             });
         } else {
-            // S'il n'y a plus d'avis, on remet la note à 0
             await mongoose.model('Movie').findByIdAndUpdate(movieId, { rating: 0 });
         }
     } catch (error) {
@@ -57,13 +50,10 @@ reviewSchema.statics.calculateAverageRating = async function(movieId) {
     }
 };
 
-// 3. MIDDLEWARE (HOOKS) : Automatiser le calcul 
-// Se déclenche automatiquement APRES la création d'un nouvel avis
 reviewSchema.post('save', function() {
     this.constructor.calculateAverageRating(this.movie);
 });
 
-// Se déclenche automatiquement APRES la suppression ou modification d'un avis
 reviewSchema.post(/^findOneAnd/, async function(doc) {
     if (doc) {
         await doc.constructor.calculateAverageRating(doc.movie);

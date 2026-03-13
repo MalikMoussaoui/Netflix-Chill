@@ -36,11 +36,9 @@ const rentalSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-// Optimisation : Index pour éviter les doublons accidentels et accélérer les requêtes
 rentalSchema.index({ user: 1, movie: 1 });
 rentalSchema.index({ status: 1, expiryDate: 1 });
 
-// Virtuals
 rentalSchema.virtual('isValid').get(function() {
     return this.status === 'active' && new Date() < this.expiryDate;
 });
@@ -51,7 +49,6 @@ rentalSchema.virtual('daysLeft').get(function() {
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
 });
 
-// Instance methods
 rentalSchema.methods.isActive = function() {
     return this.status === 'active' && new Date() < this.expiryDate;
 };
@@ -61,7 +58,6 @@ rentalSchema.methods.markAsExpired = async function() {
     return await this.save();
 };
 
-// Static methods
 rentalSchema.statics.getActiveRentals = function(userId) {
     return this.find({
         user: userId,
@@ -80,9 +76,7 @@ rentalSchema.statics.getExpiredRentals = function(userId) {
     }).populate('movie').sort({ expiryDate: -1 });
 };
 
-// Hook exécuté avant les requêtes find() pour corriger le statut à la volée 
 rentalSchema.pre(/^find/, async function() {
-    // Marquer comme expirées les locations dont la date est dépassée
     await this.model.updateMany(
         { expiryDate: { $lt: new Date() }, status: 'active' },
         { status: 'expired' }

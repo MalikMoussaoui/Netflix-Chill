@@ -1,39 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 function Register() {
-    const [formData, setFormData] = useState({ 
-        name: '', 
-        email: '', 
-        password: '', 
-        confirmPassword: '' 
-    });
+    const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
     const [errors, setErrors] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [apiError, setApiError] = useState('');
     
     const navigate = useNavigate();
+    const { register } = useAuth();
 
     const validateForm = () => {
         const newErrors = {};
-        
         if (!formData.name) newErrors.name = "Nom requis";
-        
-        if (!formData.email) {
-            newErrors.email = "Email requis";
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = "Email invalide";
-        }
-        
-        if (!formData.password) {
-            newErrors.password = "Mot de passe requis";
-        } else if (formData.password.length < 6) {
-            newErrors.password = "Au moins 6 caractères";
-        }
-        
-        if (formData.password !== formData.confirmPassword) {
-            newErrors.confirmPassword = "Les mots de passe ne correspondent pas";
-        }
-        
+        if (!formData.email) newErrors.email = "Email requis";
+        if (!formData.password) newErrors.password = "Mot de passe requis";
+        else if (formData.password.length < 6) newErrors.password = "Le mot de passe doit contenir au moins 6 caractères";
+        if (formData.password !== formData.confirmPassword) newErrors.confirmPassword = "Les mots de passe ne correspondent pas";
         return newErrors;
     };
 
@@ -46,17 +30,17 @@ function Register() {
             return;
         }
         
-        setIsLoading(true);
+        setLoading(true);
+        setApiError('');
         
-        setTimeout(() => {
-            localStorage.setItem("user", JSON.stringify({
-                name: formData.name,
-                email: formData.email
-            }));
-            
-            setIsLoading(false);
+        const result = await register(formData.name, formData.email, formData.password);
+        
+        if (result.success) {
             navigate('/');
-        }, 1000);
+        } else {
+            setApiError(result.error || "Erreur lors de l'inscription");
+            setLoading(false);
+        }
     };
 
     return (
@@ -67,9 +51,11 @@ function Register() {
                 </Link>
             </div>
             
-            <div className="flex-1 flex justify-center items-center px-4 -mt-20">
-                <div className="bg-gray-900/80 p-10 md:p-12 rounded-lg w-full max-w-md shadow-2xl border border-gray-800">
+            <div className="flex-1 flex justify-center items-center px-4 -mt-10">
+                <div className="bg-gray-900/80 p-10 md:p-16 rounded-lg w-full max-w-md shadow-2xl border border-gray-800">
                     <h2 className="text-3xl font-bold mb-8">S'inscrire</h2>
+                    
+                    {apiError && <div className="bg-red-500/10 border border-red-500 text-red-500 p-3 rounded mb-4 text-sm">{apiError}</div>}
                     
                     <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
                         <div>
@@ -108,7 +94,7 @@ function Register() {
                         <div>
                             <input 
                                 type="password" 
-                                placeholder="Confirmez le Mot de passe"
+                                placeholder="Confirmer le mot de passe"
                                 className={`w-full p-4 bg-gray-800 border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-700'} rounded focus:outline-none focus:border-gray-500`}
                                 value={formData.confirmPassword}
                                 onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
@@ -118,10 +104,10 @@ function Register() {
 
                         <button 
                             type="submit" 
-                            disabled={isLoading}
+                            disabled={loading}
                             className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 rounded mt-6 transition-colors disabled:opacity-50"
                         >
-                            {isLoading ? 'Inscription...' : "S'inscrire"}
+                            {loading ? 'Inscription en cours...' : 'S\'inscrire'}
                         </button>
                     </form>
 

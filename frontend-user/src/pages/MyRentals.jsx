@@ -1,57 +1,84 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/common/Navbar';
 import Footer from '../components/layout/Footer';
+import { useCart } from '../context/CartContext';
 import moviesData from '../data/movies.json';
 
 function MyRentals() {
-    // Initialisation directe depuis le localStorage (plus besoin de useEffect pour ça)
-    const [rentals] = useState(() => {
-        const storedData = localStorage.getItem('rentals');
-        if (storedData) {
-            try {
-                const parsedData = JSON.parse(storedData);
-                return Array.isArray(parsedData) ? parsedData : [];
-            } catch (error) {
-                console.error("Erreur de lecture du localStorage", error);
-                return [];
-            }
-        }
-        return [];
-    });
+    const { rentals } = useCart();
+
+    const activeRentals = rentals.filter(rental => new Date(rental.expiryDate) > new Date());
+    const expiredRentals = rentals.filter(rental => new Date(rental.expiryDate) <= new Date());
 
     return (
-        <div className="min-h-screen bg-black text-white">
-            <Navbar movies={moviesData} cartItems={[]} onRemove={() => {}} />
-
-            <div className="container mx-auto px-4 pt-32 pb-20">
-                <h1 className="text-4xl font-bold mb-10">Mes locations</h1>
+        <div className="min-h-screen bg-black text-white flex flex-col">
+            <Navbar movies={moviesData} />
+            
+            <div className="flex-grow container mx-auto px-4 py-24">
+                <h1 className="text-4xl font-bold mb-8">Mes locations</h1>
                 
-                {rentals.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-20 mt-10">
-                        <svg className="w-24 h-24 text-gray-700 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                {activeRentals.length > 0 && (
+                    <div className="mb-12">
+                        <h2 className="text-2xl font-bold mb-4 text-green-400">
+                            Actives ({activeRentals.length})
+                        </h2>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                            {activeRentals.map(rental => (
+                                <div key={rental.id} className="group relative">
+                                    <Link to={`/movie/${rental.movieId}`}>
+                                        <img 
+                                            src={rental.poster} 
+                                            alt={rental.title} 
+                                            className="w-full rounded-lg group-hover:scale-105 transition-transform duration-300 object-cover aspect-[2/3]"
+                                        />
+                                        <div className="mt-2">
+                                            <h3 className="font-semibold truncate">{rental.title}</h3>
+                                            <p className="text-sm text-green-400">
+                                                Expire dans {Math.ceil((new Date(rental.expiryDate) - new Date()) / (1000 * 60 * 60 * 24))} jour(s)
+                                            </p>
+                                        </div>
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {expiredRentals.length > 0 && (
+                    <div className="mb-12">
+                        <h2 className="text-2xl font-bold mb-4 text-gray-400">
+                            Expirées ({expiredRentals.length})
+                        </h2>
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                            {expiredRentals.map(rental => (
+                                <div key={rental.id} className="opacity-50">
+                                    <img 
+                                        src={rental.poster} 
+                                        alt={rental.title} 
+                                        className="w-full rounded-lg grayscale object-cover aspect-[2/3]"
+                                    />
+                                    <div className="mt-2">
+                                        <h3 className="font-semibold truncate">{rental.title}</h3>
+                                        <p className="text-sm text-red-500">Expiré</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {rentals.length === 0 && (
+                    <div className="text-center py-20 flex flex-col items-center">
+                        <svg className="w-24 h-24 mx-auto mb-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
                         </svg>
-                        <h2 className="text-xl text-gray-400 mb-8 font-medium">Aucune location pour le moment</h2>
+                        <p className="text-2xl text-gray-400 mb-6">Aucune location pour le moment</p>
                         <Link to="/">
-                            <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded transition-colors">
+                            <button className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition">
                                 Découvrir des films
                             </button>
                         </Link>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                        {rentals.map((movie) => (
-                            <Link to={`/watch/${movie.id}`} key={movie.id} className="bg-gray-900 rounded-lg overflow-hidden border border-gray-800 transition-transform hover:scale-105 block">
-                                <img src={movie.poster} alt={movie.title} className="w-full aspect-[2/3] object-cover" />
-                                <div className="p-4">
-                                    <h3 className="font-bold text-sm truncate text-white mb-1">{movie.title}</h3>
-                                    <p className="text-xs text-gray-400">
-                                        Expire le : {new Date(movie.expiryDate).toLocaleDateString()}
-                                    </p>
-                                </div>
-                            </Link>
-                        ))}
                     </div>
                 )}
             </div>
